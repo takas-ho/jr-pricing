@@ -3,3 +3,8 @@
 .idea/
 build/
 out/
+bin/
+.classpath
+.project
+.settings
+.vscode
