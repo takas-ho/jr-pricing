@@ -37,4 +37,15 @@ class AttemptFactory {
                 TicketType.片道
         );
     }
+
+    public static Attempt 大人1_通常期_姫路_自由席_のぞみ_片道() {
+        return new Attempt(
+                1, 0,
+                new DepartureDate("2019-12-24"),
+                Destination.姫路,
+                SeatType.自由席,
+                TrainType.のぞみ,
+                TicketType.片道
+        );
+    }
 }
