@@ -20,7 +20,7 @@ public class ExpressFare {
     }
 
     public Amount calculate() {
-        return this.fare.add(new Amount(this.seatType == SeatType.自由席 ? -530 : 0));
+        return this.seatType.calculate(this.fare);
     }
 
     @Override
