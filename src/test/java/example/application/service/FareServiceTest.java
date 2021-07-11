@@ -35,4 +35,13 @@ class FareServiceTest {
         Amount expected = new Amount(fareTable.fare(destination) + surchargeTable.surcharge(destination));
         assertEquals(expected, result);
     }
+
+    @Test
+    void 自由席は_割引() {
+        Attempt attempt = AttemptFactory.大人1_通常期_新大阪_自由席_ひかり_片道();
+        Amount result = fareService.amountFor(attempt);
+        Destination destination = Destination.新大阪;
+        Amount expected = new Amount(fareTable.fare(destination) + surchargeTable.surcharge(destination) - 530);
+        assertEquals(expected, result);
+    }
 }

@@ -41,4 +41,12 @@ public class Attempt {
                 "\n片道/往復=" + ticketType
                 ;
     }
+
+    public BasicFare toBasicFare(int fare) {
+        return new BasicFare(destination, new example.domain.model.bill.Amount(fare));
+    }
+
+    public ExpressFare toExpressFare(int fare) {
+        return new ExpressFare(destination, seatType, new example.domain.model.bill.Amount(fare));
+    }
 }

@@ -5,7 +5,10 @@ import example.domain.model.bill.Amount;
 import example.domain.model.rules.DistanceTable;
 import example.domain.model.rules.FareTable;
 import example.domain.model.rules.SurchargeTable;
+import example.domain.model.specification.BasicFare;
 import example.domain.model.specification.Destination;
+import example.domain.model.specification.ExpressFare;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,9 +28,10 @@ public class FareService {
     }
 
     public Amount amountFor(Attempt attempt) {
-        // 仮実装（ひかり、大人１名）
         Destination to = attempt.to();
-        Amount fare = new Amount(fareTable.fare(to) + surchargeTable.surcharge(to));
+        BasicFare basic = attempt.toBasicFare(fareTable.fare(to));
+        ExpressFare express  = attempt.toExpressFare(surchargeTable.surcharge(to));
+        Amount fare = basic.calculate().add(express.calculate());
         return fare;
     }
 }
