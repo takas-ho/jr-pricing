@@ -48,4 +48,15 @@ class AttemptFactory {
                 TicketType.片道
         );
     }
+
+    public static Attempt 子供1_通常期_新大阪_指定席_ひかり_片道() {
+        return new Attempt(
+                0, 1,
+                new DepartureDate("2019-12-24"),
+                Destination.新大阪,
+                SeatType.指定席,
+                TrainType.ひかり,
+                TicketType.片道
+        );
+    }
 }

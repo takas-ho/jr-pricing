@@ -42,12 +42,20 @@ public class Attempt {
                 ;
     }
 
-    public BasicFare toBasicFare(int fare) {
+    private BasicFare toBasicFare(int fare) {
         return new BasicFare(destination, new example.domain.model.bill.Amount(fare));
     }
 
-    public ExpressFare toExpressFare(int fare, int additional) {
+    private ExpressFare toExpressFare(int fare, int additional) {
         return new ExpressFare(destination, seatType, new example.domain.model.bill.Amount(fare), 
                                 trainType.apply(new example.domain.model.bill.Amount(additional)));
+    }
+
+    public BasicTicket toBasicTicket(int fare) {
+        return new BasicTicket(toBasicFare(fare), 0 < adult ? AdultType.大人 : AdultType.小人, departureDate);
+    }
+
+    public ExpressTicket toExpressTicket(int fare, int additional) {
+        return new ExpressTicket(toExpressFare(fare, additional), 0 < adult ? AdultType.大人 : AdultType.小人, departureDate);
     }
 }

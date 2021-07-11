@@ -16,6 +16,10 @@ public class Amount {
         return new Amount(value + other.value);
     }
 
+    public Amount calcurateToHalf() {
+        return new Amount((int)(value / 2 / 10) * 10);
+    }
+
     @Override
     public String toString() {
         return String.format("%,d円", value);

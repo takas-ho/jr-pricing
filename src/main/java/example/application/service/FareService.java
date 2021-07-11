@@ -7,8 +7,10 @@ import example.domain.model.rules.DistanceTable;
 import example.domain.model.rules.FareTable;
 import example.domain.model.rules.SurchargeTable;
 import example.domain.model.specification.BasicFare;
+import example.domain.model.specification.BasicTicket;
 import example.domain.model.specification.Destination;
 import example.domain.model.specification.ExpressFare;
+import example.domain.model.specification.ExpressTicket;
 
 import org.springframework.stereotype.Service;
 
@@ -32,8 +34,8 @@ public class FareService {
 
     public Amount amountFor(Attempt attempt) {
         Destination to = attempt.to();
-        BasicFare basic = attempt.toBasicFare(fareTable.fare(to));
-        ExpressFare express  = attempt.toExpressFare(surchargeTable.surcharge(to), additionalSurchargeTable.surcharge(to));
+        BasicTicket basic = attempt.toBasicTicket(fareTable.fare(to));
+        ExpressTicket express  = attempt.toExpressTicket(surchargeTable.surcharge(to), additionalSurchargeTable.surcharge(to));
         Amount fare = basic.calculate().add(express.calculate());
         return fare;
     }
