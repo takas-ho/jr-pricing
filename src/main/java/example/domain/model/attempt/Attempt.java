@@ -46,7 +46,8 @@ public class Attempt {
         return new BasicFare(destination, new example.domain.model.bill.Amount(fare));
     }
 
-    public ExpressFare toExpressFare(int fare) {
-        return new ExpressFare(destination, seatType, new example.domain.model.bill.Amount(fare));
+    public ExpressFare toExpressFare(int fare, int additional) {
+        return new ExpressFare(destination, seatType, new example.domain.model.bill.Amount(fare), 
+                                trainType.apply(new example.domain.model.bill.Amount(additional)));
     }
 }

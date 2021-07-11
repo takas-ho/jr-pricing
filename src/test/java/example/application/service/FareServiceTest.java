@@ -2,6 +2,7 @@ package example.application.service;
 
 import example.domain.model.attempt.Attempt;
 import example.domain.model.bill.Amount;
+import example.domain.model.rules.AdditionalSurchargeTable;
 import example.domain.model.rules.DistanceTable;
 import example.domain.model.rules.FareTable;
 import example.domain.model.rules.SurchargeTable;
@@ -16,15 +17,17 @@ class FareServiceTest {
 
     static private FareTable fareTable;
     static private SurchargeTable surchargeTable;
+    static private AdditionalSurchargeTable additionalSurchargeTable;
     static private DistanceTable distanceTable;
 
     @BeforeAll
     static void setUp() {
         fareTable = new FareTable();
         surchargeTable = new SurchargeTable();
+        additionalSurchargeTable = new AdditionalSurchargeTable();
         distanceTable = new DistanceTable();
 
-        fareService = new FareService(fareTable, surchargeTable, distanceTable);
+        fareService = new FareService(fareTable, surchargeTable, additionalSurchargeTable, distanceTable);
     }
 
     @Test
@@ -42,6 +45,15 @@ class FareServiceTest {
         Amount result = fareService.amountFor(attempt);
         Destination destination = Destination.新大阪;
         Amount expected = new Amount(fareTable.fare(destination) + surchargeTable.surcharge(destination) - 530);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void のぞみは_割増() {
+        Attempt attempt = AttemptFactory.大人1_通常期_新大阪_指定席_のぞみ_片道();
+        Amount result = fareService.amountFor(attempt);
+        Destination destination = Destination.新大阪;
+        Amount expected = new Amount(fareTable.fare(destination) + surchargeTable.surcharge(destination) + additionalSurchargeTable.surcharge(destination));
         assertEquals(expected, result);
     }
 }

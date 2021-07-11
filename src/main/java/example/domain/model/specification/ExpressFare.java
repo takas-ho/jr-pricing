@@ -11,21 +11,25 @@ public class ExpressFare {
 
     Destination destination;
     SeatType seatType;
+    TrainType trainType;
     Amount fare;
+    Amount additionalFare;
 
-    public ExpressFare(Destination destination, SeatType seatType, Amount fare) {
+    public ExpressFare(Destination destination, SeatType seatType, Amount fare, Amount additionalFare) {
         this.destination = destination;
         this.seatType = seatType;
         this.fare = fare;
+        this.additionalFare = additionalFare;
+        this.trainType = TrainType.valueOf(additionalFare);
     }
 
     public Amount calculate() {
-        return this.seatType.calculate(this.fare);
+        return this.seatType.calculate(this.fare.add(additionalFare));
     }
 
     @Override
     public String toString() {
-        return this.destination + "行き " + seatType.toString() + " 料金" + fare.toString() + "";
+        return this.destination + "行き " + seatType.toString() + " " + trainType.toString() + " 料金" + fare.toString() + "";
     }
 
     @Override
