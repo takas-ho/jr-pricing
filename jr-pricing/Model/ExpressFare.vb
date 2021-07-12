@@ -24,7 +24,7 @@ Namespace Model
         End Function
 
         Public Function Calculate() As Amount
-            Return Me.fare.Add(New Amount(If(seatType = Specification.SeatType.自由席, -530, 0)))
+            Return Me.seatType.Calculate(Me.fare)
         End Function
 
     End Class
