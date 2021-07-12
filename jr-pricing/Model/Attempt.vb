@@ -1,4 +1,5 @@
 ﻿Imports Jr.Pricing.Fw
+Imports Jr.Pricing.Model.Bill
 Imports Jr.Pricing.Model.Specification
 
 Namespace Model
@@ -46,5 +47,14 @@ Namespace Model
                                  & "列車種類={6}{0}" _
                                  & "片道/往復={7}", vbCrLf, adult, child, departureDate, destination, seatType, trainType, ticketType)
         End Function
+
+        Public Function ToBasicFare(fare As Integer) As BasicFare
+            Return New BasicFare(destination, New Amount(fare))
+        End Function
+
+        Public Function ToExpressFare(fare As Integer) As ExpressFare
+            Return New ExpressFare(destination, seatType, New Amount(fare))
+        End Function
+
     End Class
 End Namespace

@@ -76,8 +76,10 @@
     <Compile Include="Fw\TypeUtil.vb" />
     <Compile Include="Fw\ValueObject.vb" />
     <Compile Include="Model\Attempt.vb" />
+    <Compile Include="Model\BasicFare.vb" />
     <Compile Include="Model\Bill\Amount.vb" />
     <Compile Include="Model\Bill\Bill.vb" />
+    <Compile Include="Model\ExpressFare.vb" />
     <Compile Include="Model\Rules\DistanceTable.vb" />
     <Compile Include="Model\Rules\FareTable.vb" />
     <Compile Include="Model\Rules\SurchargeTable.vb" />

@@ -21,9 +21,10 @@ Namespace Application.Service
         End Sub
 
         Public Function AmountFor(attempt As Attempt) As Amount
-            ' 仮実装（ひかり、大人1名）
             Dim [to] As Destination = attempt.To()
-            Dim fare As New Amount(fareTable.GetFare([to]) + surchargeTable.GetSurcharge([to]))
+            Dim basic As BasicFare = attempt.ToBasicFare(fareTable.GetFare([to]))
+            Dim express As ExpressFare = attempt.ToExpressFare(surchargeTable.GetSurcharge([to]))
+            Dim fare As Amount = basic.Calculate().Add(express.Calculate())
             Return fare
         End Function
 
