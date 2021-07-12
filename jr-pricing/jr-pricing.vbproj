@@ -74,6 +74,11 @@
     <Compile Include="Fw\StringUtil.vb" />
     <Compile Include="Fw\TypeUtil.vb" />
     <Compile Include="Fw\ValueObject.vb" />
+    <Compile Include="Model\Specification\DepartureDate.vb" />
+    <Compile Include="Model\Specification\Destination.vb" />
+    <Compile Include="Model\Specification\SeatType.vb" />
+    <Compile Include="Model\Specification\TicketType.vb" />
+    <Compile Include="Model\Specification\TrainType.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
