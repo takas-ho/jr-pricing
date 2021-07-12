@@ -77,6 +77,9 @@
     <Compile Include="Model\Attempt.vb" />
     <Compile Include="Model\Bill\Amount.vb" />
     <Compile Include="Model\Bill\Bill.vb" />
+    <Compile Include="Model\Rules\DistanceTable.vb" />
+    <Compile Include="Model\Rules\FareTable.vb" />
+    <Compile Include="Model\Rules\SurchargeTable.vb" />
     <Compile Include="Model\Specification\DepartureDate.vb" />
     <Compile Include="Model\Specification\Destination.vb" />
     <Compile Include="Model\Specification\SeatType.vb" />
