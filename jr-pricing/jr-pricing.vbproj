@@ -65,6 +65,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Service\FareService.vb" />
     <Compile Include="Fw\CollectionObject.vb" />
     <Compile Include="Fw\CollectionUtil.vb" />
     <Compile Include="Fw\Entity.vb" />
