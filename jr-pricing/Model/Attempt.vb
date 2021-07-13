@@ -52,8 +52,8 @@ Namespace Model
             Return New BasicFare(destination, New Amount(fare))
         End Function
 
-        Public Function ToExpressFare(fare As Integer) As ExpressFare
-            Return New ExpressFare(destination, seatType, New Amount(fare))
+        Public Function ToExpressFare(fare As Integer, additionalFare As Integer) As ExpressFare
+            Return New ExpressFare(destination, seatType, New Amount(fare), trainType.Calculate(New Amount(additionalFare)))
         End Function
 
     End Class

@@ -80,6 +80,7 @@
     <Compile Include="Model\Bill\Amount.vb" />
     <Compile Include="Model\Bill\Bill.vb" />
     <Compile Include="Model\ExpressFare.vb" />
+    <Compile Include="Model\Rules\AdditionalSurchargeTable.vb" />
     <Compile Include="Model\Rules\DistanceTable.vb" />
     <Compile Include="Model\Rules\FareTable.vb" />
     <Compile Include="Model\Rules\SurchargeTable.vb" />
