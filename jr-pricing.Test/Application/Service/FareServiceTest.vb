@@ -51,5 +51,14 @@ Namespace Application.Service
             Assert.That(result, [Is].EqualTo(expected))
         End Sub
 
+        <Test()>
+        Public Sub 姫路まで_のぞみで自由席()
+            Dim attempt As Attempt = AttemptFactory.大人1_通常期_姫路_自由席_のぞみ_片道()
+            Dim result As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.姫路
+            Dim expected As New Amount(fareTable.GetFare(destination) + surchargeTable.GetSurcharge(destination) + additionalSurchargeTable.GetAdditionalSurcharge(destination) - 530)
+            Assert.That(result, [Is].EqualTo(expected))
+        End Sub
+
     End Class
 End Namespace
