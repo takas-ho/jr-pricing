@@ -19,5 +19,9 @@ Namespace Model.Bill
             Return String.Format("{0:C}円", Value)
         End Function
 
+        Public Function CalculateHalf() As Amount
+            Return New Amount(CInt(Math.Floor(Value / 2 / 10) * 10))
+        End Function
+
     End Class
 End Namespace

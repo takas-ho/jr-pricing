@@ -48,13 +48,20 @@ Namespace Model
                                  & "片道/往復={7}", vbCrLf, adult, child, departureDate, destination, seatType, trainType, ticketType)
         End Function
 
-        Public Function ToBasicFare(fare As Integer) As BasicFare
+        Private Function ToBasicFare(fare As Integer) As BasicFare
             Return New BasicFare(destination, New Amount(fare))
         End Function
 
-        Public Function ToExpressFare(fare As Integer, additionalFare As Integer) As ExpressFare
+        Private Function ToExpressFare(fare As Integer, additionalFare As Integer) As ExpressFare
             Return New ExpressFare(destination, seatType, New Amount(fare), trainType.Calculate(New Amount(additionalFare)))
         End Function
 
+        Public Function ToBasicTicket(fare As Integer) As BasicTicket
+            Return New BasicTicket(ToBasicFare(fare), If(0 < adult, AdultType.大人, AdultType.小人), departureDate)
+        End Function
+
+        Public Function ToExpressTicket(fare As Integer, additionalFare As Integer) As ExpressTicket
+            Return New ExpressTicket(ToExpressFare(fare, additionalFare), If(0 < adult, AdultType.大人, AdultType.小人), departureDate)
+        End Function
     End Class
 End Namespace
