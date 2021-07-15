@@ -56,12 +56,22 @@ Namespace Model
             Return New ExpressFare(destination, seatType, New Amount(fare), trainType.Calculate(New Amount(additionalFare)))
         End Function
 
-        Public Function ToBasicTicket(fare As Integer) As BasicTicket
-            Return New BasicTicket(ToBasicFare(fare), If(0 < adult, AdultType.大人, AdultType.小人), departureDate)
+        Public Function ToBasicTicket(fare As Integer) As BasicTickets
+            Dim results As New BasicTickets
+            results = results.AddRange(Enumerable.Range(0, adult) _
+                                       .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.大人, departureDate)))
+            results = results.AddRange(Enumerable.Range(0, child) _
+                                       .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.小人, departureDate)))
+            Return results
         End Function
 
-        Public Function ToExpressTicket(fare As Integer, additionalFare As Integer) As ExpressTicket
-            Return New ExpressTicket(ToExpressFare(fare, additionalFare), If(0 < adult, AdultType.大人, AdultType.小人), departureDate)
+        Public Function ToExpressTicket(fare As Integer, additionalFare As Integer) As ExpressTickets
+            Dim results As New ExpressTickets
+            results = results.AddRange(Enumerable.Range(0, adult) _
+                                       .Select(Function(i) New ExpressTicket(ToExpressFare(fare, additionalFare), AdultType.大人, departureDate)))
+            results = results.AddRange(Enumerable.Range(0, child) _
+                                       .Select(Function(i) New ExpressTicket(ToExpressFare(fare, additionalFare), AdultType.小人, departureDate)))
+            Return results
         End Function
     End Class
 End Namespace

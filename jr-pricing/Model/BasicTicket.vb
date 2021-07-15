@@ -26,4 +26,31 @@ Namespace Model
             Return New Object() {basicFare, adultType, [date]}
         End Function
     End Class
+    Public Class BasicTickets : Inherits CollectionObject(Of BasicTicket)
+
+        Public Sub New()
+        End Sub
+
+        Public Sub New(src As CollectionObject(Of BasicTicket))
+            MyBase.New(src)
+        End Sub
+
+        Public Sub New(initialList As IEnumerable(Of BasicTicket))
+            MyBase.New(initialList)
+        End Sub
+
+        Public Overloads Function Add(item As BasicTicket) As BasicTickets
+            Return MyBase.Add(Of BasicTickets)(item)
+        End Function
+
+        Public Overloads Function AddRange(items As IEnumerable(Of BasicTicket)) As BasicTickets
+            Return MyBase.AddRange(Of BasicTickets)(items)
+        End Function
+
+        Public Function CalculateFare() As Amount
+            Dim result As New Amount(0)
+            InternalList.ForEach(Sub(item) result = result.Add(item.CalculateFare()))
+            Return result
+        End Function
+    End Class
 End Namespace

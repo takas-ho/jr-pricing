@@ -26,4 +26,31 @@ Namespace Model
             Return New Object() {expressFare, adultType, [date]}
         End Function
     End Class
+    Public Class ExpressTickets : Inherits CollectionObject(Of ExpressTicket)
+
+        Public Sub New()
+        End Sub
+
+        Public Sub New(src As CollectionObject(Of ExpressTicket))
+            MyBase.New(src)
+        End Sub
+
+        Public Sub New(initialList As IEnumerable(Of ExpressTicket))
+            MyBase.New(initialList)
+        End Sub
+
+        Public Overloads Function Add(item As ExpressTicket) As ExpressTickets
+            Return MyBase.Add(Of ExpressTickets)(item)
+        End Function
+
+        Public Overloads Function AddRange(items As IEnumerable(Of ExpressTicket)) As ExpressTickets
+            Return MyBase.AddRange(Of ExpressTickets)(items)
+        End Function
+
+        Public Function CalculateFare() As Amount
+            Dim result As New Amount(0)
+            InternalList.ForEach(Sub(item) result = result.Add(item.CalculateFare()))
+            Return result
+        End Function
+    End Class
 End Namespace

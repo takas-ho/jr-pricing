@@ -14,6 +14,10 @@ Namespace Application.Service
         Private Shared additionalSurchargeTable As AdditionalSurchargeTable
         Private Shared distanceTable As DistanceTable
 
+        Public Function CalculateHalf(fare As Integer) As Integer
+            Return CInt(Math.Floor(fare / 2 / 10) * 10)
+        End Function
+
         <TestFixtureSetUp()>
         Public Shared Sub SetUpOnce()
             fareTable = New FareTable
@@ -67,6 +71,16 @@ Namespace Application.Service
             Dim destination As Destination = Destination.新大阪
             Dim half = Function(fare As Integer) CInt(Math.Floor(fare / 2 / 10) * 10)
             Dim expected As New Amount(half(fareTable.GetFare(destination)) + half(surchargeTable.GetSurcharge(destination)))
+        End Sub
+
+        <Test()>
+        Public Sub 大人2_小人2()
+            Dim attempt As Attempt = AttemptFactory.大人2_小人2_通常期_新大阪_指定席_ひかり_片道()
+            Dim result As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.新大阪
+            Dim adultFare As Integer = fareTable.GetFare(destination) + surchargeTable.GetSurcharge(destination)
+            Dim childFare As Integer = CalculateHalf(fareTable.GetFare(destination)) + CalculateHalf(surchargeTable.GetSurcharge(destination))
+            Dim expected As New Amount(adultFare * 2 + childFare * 2)
             Assert.That(result, [Is].EqualTo(expected))
         End Sub
 

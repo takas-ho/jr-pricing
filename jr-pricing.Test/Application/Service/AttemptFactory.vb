@@ -48,5 +48,14 @@ Namespace Application.Service
                                trainType:=TrainType.ひかり,
                                ticketType:=TicketType.片道)
         End Function
+
+        Public Shared Function 大人2_小人2_通常期_新大阪_指定席_ひかり_片道() As Attempt
+            Return New Attempt(adult:=2, child:=2,
+                               departureDate:=New DepartureDate("2019/12/24"),
+                               destination:=Destination.新大阪,
+                               seatType:=SeatType.指定席,
+                               trainType:=TrainType.ひかり,
+                               ticketType:=TicketType.片道)
+        End Function
     End Class
 End Namespace
