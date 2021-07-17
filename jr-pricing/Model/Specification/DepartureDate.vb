@@ -19,5 +19,9 @@ Namespace Model.Specification
             MyBase.New(value)
         End Sub
 
+        Public Function GetYear() As Integer
+            Return Value.Year
+        End Function
+
     End Class
 End Namespace

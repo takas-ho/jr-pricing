@@ -85,6 +85,7 @@
     <Compile Include="Model\Discount\RoundTripDiscount.vb" />
     <Compile Include="Model\ExpressFare.vb" />
     <Compile Include="Model\ExpressTicket.vb" />
+    <Compile Include="Model\Discount\GroupDiscountForTicket.vb" />
     <Compile Include="Model\ITicket.vb" />
     <Compile Include="Model\Rules\AdditionalSurchargeTable.vb" />
     <Compile Include="Model\Rules\DistanceTable.vb" />
@@ -92,6 +93,7 @@
     <Compile Include="Model\Rules\SurchargeTable.vb" />
     <Compile Include="Model\Specification\AdultType.vb" />
     <Compile Include="Model\Specification\DepartureDate.vb" />
+    <Compile Include="Model\Specification\DepartureDateRange.vb" />
     <Compile Include="Model\Specification\Destination.vb" />
     <Compile Include="Model\Specification\SeatType.vb" />
     <Compile Include="Model\Specification\TicketSellerType.vb" />

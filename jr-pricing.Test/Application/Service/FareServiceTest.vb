@@ -19,7 +19,11 @@ Namespace Application.Service
         End Function
 
         Public Function ReduceBy10Percent(fare As Integer) As Integer
-            Return CInt(Math.Floor(fare / 10 * 9 / 10) * 10)
+            Return ReduceByPercent(fare, percent:=10)
+        End Function
+
+        Public Function ReduceByPercent(fare As Integer, percent As Integer) As Integer
+            Return CInt(Math.Floor(fare * (100 - percent) / 100 / 10) * 10)
         End Function
 
         <TestFixtureSetUp()>
@@ -95,6 +99,21 @@ Namespace Application.Service
             Dim destination As Destination = Destination.姫路
             Dim adultFare As Integer = ReduceBy10Percent(fareTable.GetFare(destination)) + surchargeTable.GetSurcharge(destination)
             Dim expected As New Amount(adultFare * 2)
+            Assert.That(actual, [Is].EqualTo(expected))
+        End Sub
+
+        <TestCase("2019/12/20", 15, "その他は15%引き")>
+        <TestCase("2019/12/21", 10, "年末年始(12/21-1/10)は1割引き")>
+        <TestCase("2019/12/31", 10, "年末年始(12/21-1/10)は1割引き")>
+        <TestCase("2019/1/1", 10, "年末年始(12/21-1/10)は1割引き")>
+        <TestCase("2019/1/10", 10, "年末年始(12/21-1/10)は1割引き")>
+        <TestCase("2019/1/11", 15, "その他は15%引き")>
+        Public Sub _8人_で団体割引(departureDate As String, discountPercent As Integer, message As String)
+            Dim attempt As Attempt = AttemptFactory.大人8_新大阪_指定席_ひかり_片道(departureDate)
+            Dim actual As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.新大阪
+            Dim adultFare As Integer = ReduceByPercent(fareTable.GetFare(destination), percent:=discountPercent) + ReduceByPercent(surchargeTable.GetSurcharge(destination), percent:=discountPercent)
+            Dim expected As New Amount(adultFare * 8)
             Assert.That(actual, [Is].EqualTo(expected))
         End Sub
 
