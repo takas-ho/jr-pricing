@@ -20,7 +20,7 @@ Namespace Model.Bill
         End Function
 
         Public Function CalculateHalf() As Amount
-            Return New Amount(CInt(Math.Floor(Value / 2 / 10) * 10))
+            Return ReduceByPercent(50)
         End Function
 
         ''' <summary>
