@@ -24,13 +24,34 @@ Namespace Model.Bill
         End Function
 
         ''' <summary>
+        ''' 10円未満を切り捨てる
+        ''' </summary>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Function Floor10() As Amount
+            Return New Amount(CInt(Math.Floor(Value / 10)) * 10)
+        End Function
+
+        ''' <summary>
         ''' 率(%)で割引する
         ''' </summary>
         ''' <param name="percent"></param>
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function ReduceByPercent(percent As Integer) As Amount
-            Return New Amount(CInt(Math.Floor(Value * (100 - percent) / 100 / 10) * 10))
+            Return MultiplyAndDivide(multiplier:=100 - percent, divisor:=100)
         End Function
+
+        ''' <summary>
+        ''' 乗算して除算する
+        ''' </summary>
+        ''' <param name="multiplier"></param>
+        ''' <param name="divisor"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Function MultiplyAndDivide(multiplier As Integer, divisor As Integer) As Amount
+            Return New Amount(CInt(Math.Floor(Value * multiplier / divisor))).Floor10()
+        End Function
+
     End Class
 End Namespace
