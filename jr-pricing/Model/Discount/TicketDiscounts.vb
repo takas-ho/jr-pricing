@@ -22,7 +22,7 @@ Namespace Model.Discount
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function Calculate(amount As Amount) As Amount
-            Return InternalList.Aggregate(amount, Function(current, aDiscount) aDiscount.CalculateIfNecessary(current))
+            Return InternalList.Aggregate(amount, Function(current, aDiscount) aDiscount.CalculateIfNecessary(current)).Floor10()
         End Function
 
     End Class

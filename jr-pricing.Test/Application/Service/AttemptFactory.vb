@@ -93,5 +93,14 @@ Namespace Application.Service
                                trainType:=TrainType.ひかり,
                                ticketSellerType:=TicketSellerType.片道)
         End Function
+
+        Public Shared Function 大人8_姫路_指定席_ひかり_往復(departureDate As String) As Attempt
+            Return New Attempt(adult:=8, child:=0,
+                               departureDate:=New DepartureDate(departureDate),
+                               destination:=Destination.姫路,
+                               seatType:=SeatType.指定席,
+                               trainType:=TrainType.ひかり,
+                               ticketSellerType:=TicketSellerType.往復)
+        End Function
     End Class
 End Namespace

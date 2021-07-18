@@ -50,7 +50,7 @@ Namespace Model.Bill
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Function MultiplyAndDivide(multiplier As Integer, divisor As Integer) As Amount
-            Return New Amount(CInt(Math.Floor(Value * multiplier / divisor))).Floor10()
+            Return New Amount(CInt(Math.Floor(Value * multiplier / divisor)))
         End Function
 
     End Class

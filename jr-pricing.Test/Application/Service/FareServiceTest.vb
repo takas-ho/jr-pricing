@@ -18,12 +18,20 @@ Namespace Application.Service
             Return CInt(Math.Floor(fare / 2 / 10) * 10)
         End Function
 
-        Public Function ReduceBy10Percent(fare As Integer) As Integer
-            Return ReduceByPercent(fare, percent:=10)
+        Public Function ReduceByPercent(fare As Integer, percent As Integer) As Integer
+            Return CInt(Math.Floor(fare * (100 - percent) / 100))
         End Function
 
-        Public Function ReduceByPercent(fare As Integer, percent As Integer) As Integer
-            Return CInt(Math.Floor(fare * (100 - percent) / 100 / 10) * 10)
+        Public Function ReduceBy10PercentAndFloor10(fare As Integer) As Integer
+            Return ReduceByPercentAndFloor10(fare, percent:=10)
+        End Function
+
+        Public Function ReduceByPercentAndFloor10(fare As Integer, percent As Integer) As Integer
+            Return Floor10(ReduceByPercent(fare, percent))
+        End Function
+
+        Public Function Floor10(fare As Integer) As Integer
+            Return CInt(Math.Floor(fare / 10) * 10)
         End Function
 
         <TestFixtureSetUp()>
@@ -97,7 +105,7 @@ Namespace Application.Service
             Dim attempt As Attempt = AttemptFactory.大人1_通常期_姫路_指定席_ひかり_往復()
             Dim actual As Amount = fareService.AmountFor(attempt)
             Dim destination As Destination = Destination.姫路
-            Dim adultFare As Integer = ReduceBy10Percent(fareTable.GetFare(destination)) + surchargeTable.GetSurcharge(destination)
+            Dim adultFare As Integer = ReduceBy10PercentAndFloor10(fareTable.GetFare(destination)) + surchargeTable.GetSurcharge(destination)
             Dim expected As New Amount(adultFare * 2)
             Assert.That(actual, [Is].EqualTo(expected))
         End Sub
@@ -112,7 +120,7 @@ Namespace Application.Service
             Dim attempt As Attempt = AttemptFactory.大人8_新大阪_指定席_ひかり_片道(departureDate)
             Dim actual As Amount = fareService.AmountFor(attempt)
             Dim destination As Destination = Destination.新大阪
-            Dim adultFare As Integer = ReduceByPercent(fareTable.GetFare(destination), percent:=discountPercent) + ReduceByPercent(surchargeTable.GetSurcharge(destination) + additionalFare, percent:=discountPercent)
+            Dim adultFare As Integer = ReduceByPercentAndFloor10(fareTable.GetFare(destination), percent:=discountPercent) + ReduceByPercentAndFloor10(surchargeTable.GetSurcharge(destination) + additionalFare, percent:=discountPercent)
             Dim expected As New Amount(adultFare * 8)
             Assert.That(actual, [Is].EqualTo(expected))
         End Sub
@@ -127,7 +135,7 @@ Namespace Application.Service
             Dim attempt As Attempt = AttemptFactory.大人_通常期_新大阪_指定席_ひかり_片道(adultCount)
             Dim actual As Amount = fareService.AmountFor(attempt)
             Dim destination As Destination = Destination.新大阪
-            Dim adultFare As Integer = ReduceBy10Percent(fareTable.GetFare(destination)) + ReduceBy10Percent(surchargeTable.GetSurcharge(destination))
+            Dim adultFare As Integer = ReduceBy10PercentAndFloor10(fareTable.GetFare(destination)) + ReduceBy10PercentAndFloor10(surchargeTable.GetSurcharge(destination))
             Dim expected As New Amount(adultFare * personCount)
             Assert.That(actual, [Is].EqualTo(expected))
         End Sub
@@ -147,6 +155,20 @@ Namespace Application.Service
             Dim actual As Amount = fareService.AmountFor(attempt)
             Dim destination As Destination = Destination.新大阪
             Dim expected As New Amount(fareTable.GetFare(destination) + surchargeTable.GetSurcharge(destination) + discount)
+            Assert.That(actual, [Is].EqualTo(expected), message)
+        End Sub
+
+        <TestCase("2019/12/20", 15, 0, "")>
+        <TestCase("2019/12/21", 10, 0, "")>
+        <TestCase("2019/1/10", 10, 200, "")>
+        <TestCase("2019/1/11", 15, 0, "")>
+        Public Sub 往復割引と_団体割引が(departureDate As String, groupDiscount As Integer, seasonAdditional As Integer, message As String)
+            Const ROUND_TRIP_DISCOUNT = 10
+            Dim attempt As Attempt = AttemptFactory.大人8_姫路_指定席_ひかり_往復(departureDate)
+            Dim actual As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.姫路
+            Dim expected As New Amount((Floor10(ReduceByPercent(ReduceByPercent(fareTable.GetFare(destination), ROUND_TRIP_DISCOUNT), groupDiscount)) _
+                                                + Floor10(ReduceByPercent(surchargeTable.GetSurcharge(destination) + seasonAdditional, groupDiscount))) * 8 * 2)
             Assert.That(actual, [Is].EqualTo(expected), message)
         End Sub
 
