@@ -3,7 +3,7 @@
     ''' 片道/往復
     ''' </summary>
     ''' <remarks></remarks>
-    Public Enum TicketType
+    Public Enum TicketSellerType
         片道
         往復
     End Enum

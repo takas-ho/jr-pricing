@@ -16,20 +16,20 @@ Namespace Model
 
         Private ReadOnly seatType As SeatType
         Private ReadOnly trainType As TrainType
-        Private ReadOnly ticketType As TicketType
+        Private ReadOnly ticketSellerType As TicketSellerType
 
-        Public Sub New(adult As Integer, child As Integer, departureDate As DepartureDate, destination As Destination, seatType As SeatType, trainType As TrainType, ticketType As TicketType)
+        Public Sub New(adult As Integer, child As Integer, departureDate As DepartureDate, destination As Destination, seatType As SeatType, trainType As TrainType, ticketSellerType As TicketSellerType)
             Me.adult = adult
             Me.child = child
             Me.departureDate = departureDate
             Me.destination = destination
             Me.seatType = seatType
             Me.trainType = trainType
-            Me.ticketType = ticketType
+            Me.ticketSellerType = ticketSellerType
         End Sub
 
         Protected Overrides Function GetAtomicValues() As IEnumerable(Of Object)
-            Return New Object() {adult, child, departureDate, destination, seatType, trainType, ticketType}
+            Return New Object() {adult, child, departureDate, destination, seatType, trainType, ticketSellerType}
         End Function
 
         Public ReadOnly Property [To]() As Destination
@@ -45,7 +45,7 @@ Namespace Model
                                  & "目的地={4}{0}" _
                                  & "座席区分={5}{0}" _
                                  & "列車種類={6}{0}" _
-                                 & "片道/往復={7}", vbCrLf, adult, child, departureDate, destination, seatType, trainType, ticketType)
+                                 & "片道/往復={7}", vbCrLf, adult, child, departureDate, destination, seatType, trainType, ticketSellerType)
         End Function
 
         Private Function ToBasicFare(fare As Integer) As BasicFare
