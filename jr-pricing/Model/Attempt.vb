@@ -82,10 +82,16 @@ Namespace Model
                                         New GroupTicketDiscount(adult + child, departureDate)})
         End Function
 
+        Private Function BuildSummaryDiscounts() As SummaryDiscounts
+            Return New SummaryDiscounts({New GroupSummaryDiscount(adult + child)})
+        End Function
+
         Public Function ToTickets(fare As Integer, expressFare As Integer, additionalFare As Integer, distance As Integer) As Tickets
             Dim basics As Tickets = ToBasicTicket(fare, distance)
             Dim expresses As Tickets = ToExpressTicket(expressFare, additionalFare, distance)
-            Return basics.AddRange(Enumerable.Range(0, expresses.Count).Select(Function(i) expresses(i)))
+            Dim result As Tickets = basics.AddRange(Enumerable.Range(0, expresses.Count).Select(Function(i) expresses(i)))
+            result = result.SetSummaryDiscounts(BuildSummaryDiscounts())
+            Return result
         End Function
 
     End Class

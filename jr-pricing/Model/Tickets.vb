@@ -6,11 +6,14 @@ Namespace Model
 
     Public Class Tickets : Inherits CollectionObject(Of ITicket)
 
+        Private summaryDiscounts As SummaryDiscounts
+
         Public Sub New()
         End Sub
 
-        Public Sub New(src As CollectionObject(Of ITicket))
+        Public Sub New(src As Tickets)
             MyBase.New(src)
+            Me.summaryDiscounts = src.summaryDiscounts
         End Sub
 
         Public Sub New(initialList As IEnumerable(Of ITicket))
@@ -33,6 +36,7 @@ Namespace Model
         Public Function TotalFare() As Amount
             Dim result As New Amount(0)
             InternalList.ForEach(Sub(item) result = result.Add(item.CalculateFare()))
+            result = summaryDiscounts.Calculate(result)
             Return result
         End Function
 
@@ -50,5 +54,18 @@ Namespace Model
             Next
             Return results
         End Function
+
+        ''' <summary>
+        ''' 合計金額の割引ルールを設定する
+        ''' </summary>
+        ''' <param name="discounts">割引ルール[]</param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Function SetSummaryDiscounts(discounts As SummaryDiscounts) As Tickets
+            Dim results As Tickets = Clone(Of Tickets)()
+            results.summaryDiscounts = discounts
+            Return results
+        End Function
+
     End Class
 End Namespace

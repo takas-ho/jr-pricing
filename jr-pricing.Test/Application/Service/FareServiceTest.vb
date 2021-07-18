@@ -117,5 +117,20 @@ Namespace Application.Service
             Assert.That(actual, [Is].EqualTo(expected))
         End Sub
 
+        <TestCase(30, 30)>
+        <TestCase(31, 30)>
+        <TestCase(32, 31)>
+        <TestCase(50, 49)>
+        <TestCase(51, 49)>
+        <TestCase(52, 50)>
+        Public Sub 大人n_で団体割引_合計人数に応じて_無料の人員アリ(adultCount As Integer, personCount As Integer)
+            Dim attempt As Attempt = AttemptFactory.大人_通常期_新大阪_指定席_ひかり_片道(adultCount)
+            Dim actual As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.新大阪
+            Dim adultFare As Integer = ReduceBy10Percent(fareTable.GetFare(destination)) + ReduceBy10Percent(surchargeTable.GetSurcharge(destination))
+            Dim expected As New Amount(adultFare * personCount)
+            Assert.That(actual, [Is].EqualTo(expected))
+        End Sub
+
     End Class
 End Namespace
