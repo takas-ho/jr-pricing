@@ -6,7 +6,7 @@ Namespace Model.Discount
     ''' 団体割引（チケット向け）
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class GroupDiscountForTicket : Implements IDiscount
+    Public Class GroupTicketDiscount : Implements ITicketDiscount
         Private ReadOnly persons As Integer
         Private ReadOnly departureDate As DepartureDate
 
@@ -15,7 +15,7 @@ Namespace Model.Discount
             Me.departureDate = departureDate
         End Sub
 
-        Public Function CalculateIfNecessary(amount As Amount) As Amount Implements IDiscount.CalculateIfNecessary
+        Public Function CalculateIfNecessary(amount As Amount) As Amount Implements ITicketDiscount.CalculateIfNecessary
             If persons < 8 Then
                 Return amount
             End If

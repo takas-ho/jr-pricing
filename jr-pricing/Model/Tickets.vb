@@ -42,7 +42,7 @@ Namespace Model
         ''' <param name="discounts">割引ルール[]</param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Public Function SetDiscounts(discounts As Discounts) As Tickets
+        Public Function SetTicketDiscounts(discounts As TicketDiscounts) As Tickets
             Dim results As Tickets = Clone(Of Tickets)()
             results.InternalList.Clear()
             For Each ticket As ITicket In InternalList

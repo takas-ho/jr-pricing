@@ -12,16 +12,16 @@ Namespace Model
         Private ReadOnly basicFare As BasicFare
         Private ReadOnly adultType As AdultType
         Private ReadOnly [date] As DepartureDate
-        Private ReadOnly discounts As Discounts
+        Private ReadOnly discounts As TicketDiscounts
 
         Public Sub New(basicFare As BasicFare, adultType As AdultType, [date] As DepartureDate)
             Me.new(basicFare, adultType, [date], Nothing)
         End Sub
-        Public Sub New(basicFare As BasicFare, adultType As AdultType, [date] As DepartureDate, discounts As Discounts)
+        Public Sub New(basicFare As BasicFare, adultType As AdultType, [date] As DepartureDate, discounts As TicketDiscounts)
             Me.basicFare = basicFare
             Me.adultType = adultType
             Me.date = [date]
-            Me.discounts = If(discounts, New Discounts)
+            Me.discounts = If(discounts, New TicketDiscounts)
         End Sub
 
         Public Function CalculateFare() As Amount Implements ITicket.CalculateFare
@@ -34,7 +34,7 @@ Namespace Model
         ''' <param name="discounts">割引ルール[]</param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Public Function SetDiscounts(discounts As Discounts) As ITicket Implements ITicket.SetDiscounts
+        Public Function SetDiscounts(discounts As TicketDiscounts) As ITicket Implements ITicket.SetDiscounts
             Return New BasicTicket(basicFare, adultType, [date], discounts)
         End Function
 

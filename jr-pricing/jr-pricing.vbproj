@@ -80,12 +80,12 @@
     <Compile Include="Model\BasicTicket.vb" />
     <Compile Include="Model\Bill\Amount.vb" />
     <Compile Include="Model\Bill\Bill.vb" />
-    <Compile Include="Model\Discount\Discounts.vb" />
-    <Compile Include="Model\Discount\IDiscount.vb" />
-    <Compile Include="Model\Discount\RoundTripDiscount.vb" />
+    <Compile Include="Model\Discount\GroupTicketDiscount.vb" />
+    <Compile Include="Model\Discount\ITicketDiscount.vb" />
+    <Compile Include="Model\Discount\RoundTripTicketDiscount.vb" />
+    <Compile Include="Model\Discount\TicketDiscounts.vb" />
     <Compile Include="Model\ExpressFare.vb" />
     <Compile Include="Model\ExpressTicket.vb" />
-    <Compile Include="Model\Discount\GroupDiscountForTicket.vb" />
     <Compile Include="Model\ITicket.vb" />
     <Compile Include="Model\Rules\AdditionalSurchargeTable.vb" />
     <Compile Include="Model\Rules\DistanceTable.vb" />

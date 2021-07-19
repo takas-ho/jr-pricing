@@ -2,16 +2,16 @@
 Imports Jr.Pricing.Model.Bill
 
 Namespace Model.Discount
-    Public Class Discounts : Inherits CollectionObject(Of IDiscount)
+    Public Class TicketDiscounts : Inherits CollectionObject(Of ITicketDiscount)
 
         Public Sub New()
         End Sub
 
-        Public Sub New(src As CollectionObject(Of IDiscount))
+        Public Sub New(src As CollectionObject(Of ITicketDiscount))
             MyBase.New(src)
         End Sub
 
-        Public Sub New(initialList As IEnumerable(Of IDiscount))
+        Public Sub New(initialList As IEnumerable(Of ITicketDiscount))
             MyBase.New(initialList)
         End Sub
 

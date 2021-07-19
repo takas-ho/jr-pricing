@@ -63,7 +63,7 @@ Namespace Model
                                        .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.大人, departureDate)).Cast(Of ITicket))
             results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(child)) _
                                        .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.小人, departureDate)).Cast(Of ITicket))
-            results = results.SetDiscounts(BuildDiscounts(distance, TicketType.乗車券))
+            results = results.SetTicketDiscounts(BuildTicketDiscounts(distance, TicketType.乗車券))
             Return results
         End Function
 
@@ -73,13 +73,13 @@ Namespace Model
                                        .Select(Function(i) New ExpressTicket(ToExpressFare(expressFare, additionalFare), AdultType.大人, departureDate)).Cast(Of ITicket))
             results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(child)) _
                                        .Select(Function(i) New ExpressTicket(ToExpressFare(expressFare, additionalFare), AdultType.小人, departureDate)).Cast(Of ITicket))
-            results = results.SetDiscounts(BuildDiscounts(distance, TicketType.特急券))
+            results = results.SetTicketDiscounts(BuildTicketDiscounts(distance, TicketType.特急券))
             Return results
         End Function
 
-        Private Function BuildDiscounts(distance As Integer, ticketType As TicketType) As Discounts
-            Return New Discounts({New RoundTripDiscount(distance, ticketType, ticketSellerType),
-                                  New GroupDiscountForTicket(adult + child, departureDate)})
+        Private Function BuildTicketDiscounts(distance As Integer, ticketType As TicketType) As TicketDiscounts
+            Return New TicketDiscounts({New RoundTripTicketDiscount(distance, ticketType, ticketSellerType),
+                                        New GroupTicketDiscount(adult + child, departureDate)})
         End Function
 
         Public Function ToTickets(fare As Integer, expressFare As Integer, additionalFare As Integer, distance As Integer) As Tickets

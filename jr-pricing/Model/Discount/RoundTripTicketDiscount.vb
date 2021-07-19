@@ -6,7 +6,7 @@ Namespace Model.Discount
     ''' 往復割引（片道600km以上）
     ''' </summary>
     ''' <remarks></remarks>
-    Public Class RoundTripDiscount : Implements IDiscount
+    Public Class RoundTripTicketDiscount : Implements ITicketDiscount
 
         Private ReadOnly distance As Integer
         Private ReadOnly ticketType As TicketType
@@ -18,7 +18,7 @@ Namespace Model.Discount
             Me.ticketSellerType = ticketSellerType
         End Sub
 
-        Public Function CalculateIfNecessary(amount As Amount) As Amount Implements IDiscount.CalculateIfNecessary
+        Public Function CalculateIfNecessary(amount As Amount) As Amount Implements ITicketDiscount.CalculateIfNecessary
             If ticketType = ticketType.乗車券 AndAlso 600 < distance AndAlso ticketSellerType = ticketSellerType.往復 Then
                 Return amount.ReduceByPercent(10)
             End If

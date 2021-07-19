@@ -16,6 +16,6 @@ Namespace Model
         ''' <param name="discounts">割引ルール[]</param>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        Function SetDiscounts(discounts As Discounts) As ITicket
+        Function SetDiscounts(discounts As TicketDiscounts) As ITicket
     End Interface
 End Namespace
