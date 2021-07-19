@@ -23,5 +23,14 @@ Namespace Model.Bill
             Return New Amount(CInt(Math.Floor(Value / 2 / 10) * 10))
         End Function
 
+        ''' <summary>
+        ''' 率(%)で割引する
+        ''' </summary>
+        ''' <param name="percent"></param>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Public Function ReduceByPercent(percent As Integer) As Amount
+            Return New Amount(CInt(Math.Floor(Value * (100 - percent) / 100 / 10) * 10))
+        End Function
     End Class
 End Namespace

@@ -18,6 +18,10 @@ Namespace Application.Service
             Return CInt(Math.Floor(fare / 2 / 10) * 10)
         End Function
 
+        Public Function ReduceBy10Percent(fare As Integer) As Integer
+            Return CInt(Math.Floor(fare / 10 * 9 / 10) * 10)
+        End Function
+
         <TestFixtureSetUp()>
         Public Shared Sub SetUpOnce()
             fareTable = New FareTable
@@ -82,6 +86,16 @@ Namespace Application.Service
             Dim childFare As Integer = CalculateHalf(fareTable.GetFare(destination)) + CalculateHalf(surchargeTable.GetSurcharge(destination))
             Dim expected As New Amount(adultFare * 2 + childFare * 2)
             Assert.That(result, [Is].EqualTo(expected))
+        End Sub
+
+        <Test()>
+        Public Sub 片道600km以上の往復チケットだと_運賃が1割引き()
+            Dim attempt As Attempt = AttemptFactory.大人1_通常期_姫路_指定席_ひかり_往復()
+            Dim actual As Amount = fareService.AmountFor(attempt)
+            Dim destination As Destination = Destination.姫路
+            Dim adultFare As Integer = ReduceBy10Percent(fareTable.GetFare(destination)) + surchargeTable.GetSurcharge(destination)
+            Dim expected As New Amount(adultFare * 2)
+            Assert.That(actual, [Is].EqualTo(expected))
         End Sub
 
     End Class

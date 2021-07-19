@@ -24,8 +24,9 @@ Namespace Application.Service
 
         Public Function AmountFor(attempt As Attempt) As Amount
             Dim [to] As Destination = attempt.To()
-            Dim basic As BasicTickets = attempt.ToBasicTicket(fareTable.GetFare([to]))
-            Dim express As ExpressTickets = attempt.ToExpressTicket(surchargeTable.GetSurcharge([to]), additionalSurchargeTable.GetAdditionalSurcharge([to]))
+            Dim distance As Integer = distanceTable.GetDistance([to])
+            Dim basic As BasicTickets = attempt.ToBasicTicket(fareTable.GetFare([to]), distance)
+            Dim express As ExpressTickets = attempt.ToExpressTicket(surchargeTable.GetSurcharge([to]), additionalSurchargeTable.GetAdditionalSurcharge([to]), distance)
             Dim fare As Amount = basic.CalculateFare().Add(express.CalculateFare())
             Return fare
         End Function

@@ -1,5 +1,6 @@
 ﻿Imports Jr.Pricing.Fw
 Imports Jr.Pricing.Model.Bill
+Imports Jr.Pricing.Model.Discount
 Imports Jr.Pricing.Model.Specification
 
 Namespace Model
@@ -56,22 +57,29 @@ Namespace Model
             Return New ExpressFare(destination, seatType, New Amount(fare), trainType.Calculate(New Amount(additionalFare)))
         End Function
 
-        Public Function ToBasicTicket(fare As Integer) As BasicTickets
+        Public Function ToBasicTicket(fare As Integer, distance As Integer) As BasicTickets
             Dim results As New BasicTickets
-            results = results.AddRange(Enumerable.Range(0, adult) _
+            results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(adult)) _
                                        .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.大人, departureDate)))
-            results = results.AddRange(Enumerable.Range(0, child) _
+            results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(child)) _
                                        .Select(Function(i) New BasicTicket(ToBasicFare(fare), AdultType.小人, departureDate)))
+            results = results.SetDiscounts(BuildDiscounts(distance, TicketType.乗車券))
             Return results
         End Function
 
-        Public Function ToExpressTicket(fare As Integer, additionalFare As Integer) As ExpressTickets
+        Public Function ToExpressTicket(fare As Integer, additionalFare As Integer, distance As Integer) As ExpressTickets
             Dim results As New ExpressTickets
-            results = results.AddRange(Enumerable.Range(0, adult) _
+            results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(adult)) _
                                        .Select(Function(i) New ExpressTicket(ToExpressFare(fare, additionalFare), AdultType.大人, departureDate)))
-            results = results.AddRange(Enumerable.Range(0, child) _
+            results = results.AddRange(Enumerable.Range(0, ticketSellerType.CalculateTickets(child)) _
                                        .Select(Function(i) New ExpressTicket(ToExpressFare(fare, additionalFare), AdultType.小人, departureDate)))
+            results = results.SetDiscounts(BuildDiscounts(distance, TicketType.特急券))
             Return results
         End Function
+
+        Private Function BuildDiscounts(distance As Integer, ticketType As TicketType) As Discounts
+            Return New Discounts({New RoundTripDiscount(distance, ticketType, ticketSellerType)})
+        End Function
+
     End Class
 End Namespace
