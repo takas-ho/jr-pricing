@@ -85,6 +85,7 @@
     <Compile Include="Model\Discount\RoundTripDiscount.vb" />
     <Compile Include="Model\ExpressFare.vb" />
     <Compile Include="Model\ExpressTicket.vb" />
+    <Compile Include="Model\ITicket.vb" />
     <Compile Include="Model\Rules\AdditionalSurchargeTable.vb" />
     <Compile Include="Model\Rules\DistanceTable.vb" />
     <Compile Include="Model\Rules\FareTable.vb" />
@@ -96,6 +97,7 @@
     <Compile Include="Model\Specification\TicketSellerType.vb" />
     <Compile Include="Model\Specification\TicketType.vb" />
     <Compile Include="Model\Specification\TrainType.vb" />
+    <Compile Include="Model\Tickets.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
