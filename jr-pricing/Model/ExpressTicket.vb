@@ -25,7 +25,7 @@ Namespace Model
         End Sub
 
         Public Function CalculateFare() As Amount Implements ITicket.CalculateFare
-            Return discounts.Calculate(Me.adultType.CalculateFare(Me.expressFare.Calculate()))
+            Return discounts.Calculate(Me.adultType.CalculateFare(Me.expressFare.Calculate([date])))
         End Function
 
         ''' <summary>

@@ -78,8 +78,7 @@ Namespace Model
         End Function
 
         Private Function BuildTicketDiscounts(distance As Integer, ticketType As TicketType) As TicketDiscounts
-            Return New TicketDiscounts({New ExpressTicketDiscount(ticketType, seatType, departureDate),
-                                        New RoundTripTicketDiscount(distance, ticketType, ticketSellerType),
+            Return New TicketDiscounts({New RoundTripTicketDiscount(distance, ticketType, ticketSellerType),
                                         New GroupTicketDiscount(adult + child, departureDate)})
         End Function
 

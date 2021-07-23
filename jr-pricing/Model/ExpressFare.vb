@@ -27,8 +27,8 @@ Namespace Model
             Return New Object() {destination, seatType, trainType, fare, additionalFare}
         End Function
 
-        Public Function Calculate() As Amount
-            Return Me.seatType.Calculate(Me.fare.Add(additionalFare))
+        Public Function Calculate(departureDate As DepartureDate) As Amount
+            Return Me.seatType.Calculate(Me.fare.Add(additionalFare), departureDate)
         End Function
 
     End Class

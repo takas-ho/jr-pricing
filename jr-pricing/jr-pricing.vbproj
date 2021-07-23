@@ -80,7 +80,6 @@
     <Compile Include="Model\BasicTicket.vb" />
     <Compile Include="Model\Bill\Amount.vb" />
     <Compile Include="Model\Bill\Bill.vb" />
-    <Compile Include="Model\Discount\ExpressTicketDiscount.vb" />
     <Compile Include="Model\Discount\GroupSummaryDiscount.vb" />
     <Compile Include="Model\Discount\GroupTicketDiscount.vb" />
     <Compile Include="Model\Discount\ISummaryDiscount.vb" />
