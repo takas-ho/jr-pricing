@@ -7,6 +7,10 @@ Namespace Model.Specification
     ''' <remarks></remarks>
     Public Class DepartureDate : Inherits PrimitiveValueObject(Of DateTime)
 
+        Public Sub New(year As Integer, month As Integer, day As Integer)
+            Me.New(New DateTime(year, month, day))
+        End Sub
+
         Public Sub New(value As String)
             Me.New(CDate(value))
         End Sub
