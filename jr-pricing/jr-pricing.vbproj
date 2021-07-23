@@ -66,6 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.vb" />
+    <Compile Include="Fw\CollectionObject.vb" />
+    <Compile Include="Fw\CollectionUtil.vb" />
+    <Compile Include="Fw\Entity.vb" />
+    <Compile Include="Fw\EzUtil.vb" />
+    <Compile Include="Fw\ICollectionObject.vb" />
+    <Compile Include="Fw\PrimitiveValueObject.vb" />
+    <Compile Include="Fw\StringUtil.vb" />
+    <Compile Include="Fw\TypeUtil.vb" />
+    <Compile Include="Fw\ValueObject.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -101,6 +110,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
